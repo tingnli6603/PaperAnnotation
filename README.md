@@ -20,4 +20,4 @@
 
 5.data generator。將data每次依據batch size大小輸入，並塞入padding。最後將文字轉換成keras_bert輸入格式，包含indices list以及segment list。輸入到模型的格式為[X1,X2,Y]，X1為indices list，X2為segment list，Y為label。
 
-6.模型驗證使用5-fold cross validation做交叉驗證，避免模型過擬於單一結果。最終模型是先取得BERT模型最後一層的[CLS](符號代表文本向量)，並多加一層分類器在[CLS]後面，activation function使用sigmoid，loss function則是binary-crossentropy，利用Adam方式學習，最後用f1-score評估成效。
+6.模型驗證使用5-fold cross validation做交叉驗證，避免模型過擬於單一結果。最終模型是先取得BERT模型最後一層的CLS(符號代表文本向量)，並多加一層分類器在CLS後面，activation function使用sigmoid，loss function則是binary-crossentropy，利用Adam方式學習，最後用f1-score評估成效。
