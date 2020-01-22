@@ -10,6 +10,8 @@
 ---
 參考方法: https://github.com/bojone/bert_in_keras/blob/master/sentiment.py
 
+檔案: 5foldCV_keras-bert-binaryBackground.ipynb
+
 1.載入事先下載的Pre-trained Model，我載的是cased_L-12_H-768_A-12(來源:https://github.com/google-research/bert#pre-trained-models)。
 
 2.將pre-trained model的字典載入，給予每個字在字典內的索引位置(index)，利用tokenizer後的字包含index以及segment。
