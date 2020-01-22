@@ -6,7 +6,15 @@
 ---
 首先將整句話轉換成向量的形式，再依據向量去做分類。
 
-BERT是一個依據Transformer的Encoder模型所轉化而來，利用Multi-head Attention機制作為模型學習的方法，再利用MLM(Masked Language Model)以及NSP(Next Sentence Prediction)作為訓練任務，並利用深層(12或24層)、多neuron(768或1024，代表向量維度)、多head(12或16)，總參數高達110或340M。每個字詞透過Self-Attention機制可以學習到與其他字詞的關聯強度；透過Multi-Head Attention可得知在不同語境下，兩字之間的關聯強度；在MLM訓練任務下，每個字詞可以得到雙向語句資訊，即從該字的左邊或從該字的右邊學習到相關資訊；多層隱藏層的學習，可以累積字詞的資訊到每個字身上。假設整篇有20個字，第10個字(word10)會學習到前9個字累積而來的資訊(word1->word2->...->word10)以及第20個字往前累積而來的資訊(word20->word19->...->word10)。
+BERT是一個依據Transformer的Encoder模型所轉化而來，利用Multi-head Attention機制作為模型學習的方法，再利用MLM(Masked Language Model)以及NSP(Next Sentence Prediction)作為訓練任務，並利用深層(12或24層)、多neuron(768或1024，代表向量維度)、多head(12或16)，總參數高達110或340M。
+
+1.每個字詞透過Self-Attention機制可以學習到與其他字詞的關聯強度；
+
+2.透過Multi-Head Attention可得知在不同語境下，兩字之間的關聯強度；
+
+3.在MLM訓練任務下，每個字詞可以得到雙向語句資訊，即從該字的左邊或從該字的右邊學習到相關資訊；
+
+4.多層隱藏層的學習，可以累積字詞的資訊到每個字身上。假設整篇有20個字，第10個字(word10)會學習到前9個字累積而來的資訊(word1->word2->...->word10)以及第20個字往前累積而來的資訊(word20->word19->...->word10)。
 
 我們利用KERAS所開發出的套件，keras_bert，作為我們使用的工具。將語句的每個字先轉換成BERT輸入的格式後，通過模型即可得到語句向量。再將語句向量接續分類演算法即可達到分類效果。我們利用別人的pre-trained model做使用(感謝前人的貢獻)，BERT模型好處是可以做fine-tune，根據後續的分類任務去微調整體模型的參數，但在設備資源的關係下就沒有微調所有參數，只單純調整最後分類的參數。
 
