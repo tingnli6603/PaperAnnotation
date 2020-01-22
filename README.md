@@ -20,9 +20,9 @@ BERT是一個依據Transformer的Encoder模型所轉化而來，利用Multi-head
 
 作法過程
 ---
-參考方法: https://github.com/bojone/bert_in_keras/blob/master/sentiment.py
-
 檔案: 5foldCV_keras-bert-binaryBackground.ipynb
+---
+參考方法: https://github.com/bojone/bert_in_keras/blob/master/sentiment.py
 
 1.載入事先下載的Pre-trained Model，我載的是cased_L-12_H-768_A-12(來源:https://github.com/google-research/bert#pre-trained-models)。
 
@@ -35,3 +35,7 @@ BERT是一個依據Transformer的Encoder模型所轉化而來，利用Multi-head
 5.data generator。將data每次依據batch size大小輸入，並塞入padding。最後將文字轉換成keras_bert輸入格式，包含indices list以及segment list。輸入到模型的格式為[X1,X2,Y]，X1為indices list，X2為segment list，Y為label。
 
 6.模型驗證使用5-fold cross validation做交叉驗證，避免模型過擬於單一結果。最終模型是先取得BERT模型最後一層的CLS(符號代表文本向量)，並多加一層分類器在CLS後面，activation function使用sigmoid，loss function則是binary-crossentropy，利用Adam方式學習，最後用f1-score評估成效。
+
+檔案: loadModel_predictScore.ipynb
+---
+針對每個類別標籤都訓練好一個二元分類模型後，利用這些模型去預測未知資料。將語句轉換成BERT輸入格式後，輸入到各個模型後，即可獲得該類別的二元分類分數，設定閥值為0.4，大於等於0.4即屬該類別，小於0.4則否。而others類別根據數據觀察結果，他會與其他類別互斥，只會獨立出現，故分類結果不屬於前五類別之語句即屬others。
